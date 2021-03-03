@@ -1,0 +1,1 @@
+export { HelloQuery } from './hello';

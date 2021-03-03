@@ -1,4 +1,6 @@
 import { credentials } from '@grpc/grpc-js';
+import { rejects } from 'assert';
+import { resolve } from 'path';
 import { grpcClientOptions, SERVER_PORT } from '../../config';
 import { GreeterClient } from '../../types/proto/helloworld_grpc_pb';
 import { HelloRequest } from '../../types/proto/helloworld_pb';
@@ -15,10 +17,17 @@ export const sayHello = ({ name = 'World' }: SayHelloParams) => {
   );
   request.setName(name);
 
-  return async () => {
+  return new Promise((resolve, reject) => {
     client.sayHello(request, (error, response) => {
-      if (error) throw new Error(error.message);
-      return response?.toObject();
+      if (error) {
+        console.error(error);
+        reject({
+          code: error.code,
+          message: error.message,
+        });
+      }
+
+      return resolve(response?.toObject());
     });
-  };
+  });
 };
