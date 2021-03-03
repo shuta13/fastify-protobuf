@@ -1,0 +1,1 @@
+# fastify-protobuf-ex
