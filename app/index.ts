@@ -1,26 +1,11 @@
-import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify';
-import { Server, IncomingMessage, ServerResponse } from 'http';
+import Fastify, { FastifyInstance } from 'fastify';
+import { rootOpts } from './opts';
 
 const server: FastifyInstance = Fastify({
   logger: true,
 });
 
-const opts: RouteShorthandOptions = {
-  schema: {
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          hello: {
-            type: 'string',
-          },
-        },
-      },
-    },
-  },
-};
-
-server.get('/', opts, async (request, reply) =>
+server.get('/', rootOpts, async (request, reply) =>
   reply.send({
     hello: 'world!',
   })
