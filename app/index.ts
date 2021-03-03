@@ -1,7 +1,9 @@
 import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 
-const server: FastifyInstance = Fastify({});
+const server: FastifyInstance = Fastify({
+  logger: true,
+});
 
 const opts: RouteShorthandOptions = {
   schema: {
@@ -12,20 +14,28 @@ const opts: RouteShorthandOptions = {
           hello: {
             type: 'string',
           },
+          reply: {
+            type: 'object',
+          },
         },
       },
     },
   },
 };
 
-server.get('/hello', opts, async (request, response) => ({ hello: 'world!' }));
+server.get('/', opts, async (request, reply) =>
+  reply.send({
+    hello: 'world!',
+  })
+);
 
 (async () => {
   try {
     await server.listen(3000);
 
     const address = server.server.address();
-    address && server.log.info(`listening on ${address}`);
+    const port = typeof address === 'string' ? address : address?.port;
+    server.log.info(`listening on http://localhost:${port}`);
   } catch (error) {
     server.log.error(error);
     process.exit(1);
