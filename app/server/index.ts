@@ -3,7 +3,7 @@ import type { FastifyInstance } from 'fastify';
 import { routes } from './routes';
 import type { IncomingMessage, Server, ServerResponse } from 'http';
 
-const server: FastifyInstance<
+const fastify: FastifyInstance<
   Server,
   IncomingMessage,
   ServerResponse
@@ -11,12 +11,12 @@ const server: FastifyInstance<
   logger: true,
 });
 
-server.register(routes);
+fastify.register(routes);
 
-server.listen(3000, (err, address) => {
+fastify.listen(3000, (err, address) => {
   if (err) {
-    server.log.error(err.message);
+    fastify.log.error(err.message);
     process.exit(1);
   }
-  server.log.info(`server listening at ${address}`);
+  fastify.log.info(`fastify listening at ${address}`);
 });
