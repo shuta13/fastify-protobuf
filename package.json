@@ -10,7 +10,7 @@
     "dev": "npm run dev:server & npm run dev:client",
     "dev:server": "nodemon app/server/index.ts",
     "dev:client": "nodemon app/client/index.ts",
-    "protogen": "app/scripts/proto-types-gen.sh"
+    "protosgen": "app/scripts/protos-gen.sh"
   },
   "repository": {
     "type": "git",

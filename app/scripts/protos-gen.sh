@@ -4,7 +4,7 @@ PROTOC_GEN_GRPC_BIN_PATH="./node_modules/.bin/grpc_tools_node_protoc"
 
 TARGET_DIR="./app/server/protos"
 
-OUT_DIR="./app/server/types"
+OUT_DIR="./app/server/protos-gen"
 
 rm -rf ${OUT_DIR} && mkdir ${OUT_DIR}
 

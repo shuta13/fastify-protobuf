@@ -1,22 +1,21 @@
-import Fastify from 'fastify';
-import type { FastifyInstance } from 'fastify';
-import { routes } from './routes';
-import type { IncomingMessage, Server, ServerResponse } from 'http';
+import { sendUnaryData, Server, ServerUnaryCall } from '@grpc/grpc-js';
+import { GreeterService } from './protos-gen/helloworld_grpc_pb';
+import { HelloReply, HelloRequest } from './protos-gen/helloworld_pb';
 
-const fastify: FastifyInstance<
-  Server,
-  IncomingMessage,
-  ServerResponse
-> = Fastify({
-  logger: true,
-});
+const sayHello = (
+  call: ServerUnaryCall<HelloRequest, HelloReply>,
+  callback: sendUnaryData<HelloReply>
+) => {
+  const greeter = new HelloReply();
+  const name = call.request.getName();
+  const message = `Hello ${name}`;
 
-fastify.register(routes);
+  greeter.setMessage(message);
+  callback(null, greeter);
+};
 
-fastify.listen(3000, (err, address) => {
-  if (err) {
-    fastify.log.error(err.message);
-    process.exit(1);
-  }
-  fastify.log.info(`fastify listening at ${address}`);
-});
+// (async () => {
+//   const server = new Server();
+//   server.addService(GreeterService, { sayHello });
+//   server.bindAsync()
+// })();

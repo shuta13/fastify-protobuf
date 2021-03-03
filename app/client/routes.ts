@@ -1,5 +1,5 @@
 import type { FastifyInstance } from 'fastify';
-import { root } from './schema';
+import { root } from './schemas';
 
 export const routes = async (fastify: FastifyInstance) => {
   fastify.get('/', root, async (request, reply) =>
@@ -9,9 +9,5 @@ export const routes = async (fastify: FastifyInstance) => {
   );
 
   // TODO: protoBuf
-  fastify.get('/protobuf', async (request, reply) => {
-    reply.code(200).send({
-      message: 'WIP',
-    });
-  });
+  fastify.get('/hello', async (request, reply) => {});
 };
