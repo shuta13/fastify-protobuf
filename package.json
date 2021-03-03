@@ -5,12 +5,11 @@
   "engines": {
     "node": "12.4.0"
   },
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "tsc && npm run serve",
-    "build": "tsc",
-    "watch": "tsc -w",
-    "serve": "node dist/index.js",
+    "dev": "npm run dev:server & npm run dev:client",
+    "dev:server": "nodemon app/server/index.ts",
+    "dev:client": "nodemon app/client/index.ts",
     "clean": "rimraf dist"
   },
   "repository": {
@@ -28,7 +27,9 @@
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
+    "nodemon": "^2.0.7",
     "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.2"
   }
 }
