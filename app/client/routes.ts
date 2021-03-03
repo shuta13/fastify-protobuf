@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { sayHello } from './controller';
 import { root } from './schemas';
 
 export const routes = async (fastify: FastifyInstance) => {
@@ -9,5 +10,14 @@ export const routes = async (fastify: FastifyInstance) => {
   );
 
   // TODO: protoBuf
-  fastify.get('/hello', async (request, reply) => {});
+  fastify.get('/hello', async (request, reply) => {
+    const { name } = request.query;
+
+    try {
+      const result = await sayHello({ name });
+      reply.code(200).send({ result });
+    } catch (error) {
+      reply.code(500).send({ error });
+    }
+  });
 };
