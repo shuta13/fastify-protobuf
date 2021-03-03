@@ -1,5 +1,7 @@
 # fastify-protobuf-ex
 
+デプロイめんどくさい
+
 ## ref
 
 **gRPC, Protocol Buffers, protoBuf codegen**
