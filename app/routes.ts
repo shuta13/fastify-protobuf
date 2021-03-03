@@ -7,4 +7,11 @@ export const routes = async (fastify: FastifyInstance) => {
       message: 'it works!',
     })
   );
+
+  // TODO: protoBuf
+  fastify.get('/protobuf', async (request, reply) => {
+    reply.code(200).send({
+      message: 'WIP',
+    });
+  });
 };
