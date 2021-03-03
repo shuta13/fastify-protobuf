@@ -14,9 +14,6 @@ const opts: RouteShorthandOptions = {
           hello: {
             type: 'string',
           },
-          reply: {
-            type: 'object',
-          },
         },
       },
     },
