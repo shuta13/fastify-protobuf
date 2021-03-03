@@ -1,25 +1,16 @@
-import Fastify, { FastifyInstance } from 'fastify';
-import { rootOpts } from './opts';
+import Fastify from 'fastify';
+import { routes } from './routes';
 
-const server: FastifyInstance = Fastify({
+const server = Fastify({
   logger: true,
 });
 
-server.get('/', rootOpts, async (request, reply) =>
-  reply.send({
-    hello: 'world!',
-  })
-);
+server.register(routes);
 
-(async () => {
-  try {
-    await server.listen(3000);
-
-    const address = server.server.address();
-    const port = typeof address === 'string' ? address : address?.port;
-    server.log.info(`listening on http://localhost:${port}`);
-  } catch (error) {
-    server.log.error(error);
+server.listen(3000, (err, address) => {
+  if (err) {
+    server.log.error(err.message);
     process.exit(1);
   }
-})();
+  server.log.info(`server listening on ${address}`);
+});
