@@ -1,4 +1,4 @@
-# fastify-protobuf-ex
+# fastify-protobuf
 
 デプロイめんどくさい
 
